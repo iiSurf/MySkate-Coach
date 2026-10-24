@@ -137,3 +137,24 @@ Step 5, second half: put the pieces together. Ask once; if the checks fail, ask 
 ### Verified
 
 `npm test`: 45 tests pass. The new ones use a stand-in for Claude: a good plan the first time (asked once); a plan with 65 minutes that is fixed on the second try (the retry prompt has the brief, the problem, and the last reply); a plan that fails twice (MySkate's own plan, with the reason); an answer that is not JSON and an empty answer (retried like any failed check); a usage limit (not retried; MySkate's own plan says why). MySkate's own plan matches the app's own suggestion and its way of sharing minutes for 15, 30, 45, 60, and 120 minutes, and passes the same checks as Claude's plan. The run log keeps both attempts and their problems, and a second run in the same second gets its own file.
+
+## 2026-10-23 (Friday): the command, tested end to end
+
+### Plan
+
+Step 6: the command the skater runs (`npm run coach`), the plan laid out for the terminal and as a file, and tests that run the whole command as a real process against the stand-in for Claude Code.
+
+### Changes
+
+- `coach.mjs`: finds MySkate and the newest backup (or the one given), asks for a locked backup's passphrase without showing it, says how fresh the backup is, checks the sign-in, runs the coach, shows each check as it happens, prints the plan, saves it to `plans/<day>.md`, and writes the run log to `runs/`. Options: `--slot`, `--today`, `--date`, `--model`, `--brief` (show what Claude would get, and stop), `--myskate` (MySkate's own suggestion, without Claude), and `--signin` (`npm run signin`: `claude auth login --claudeai`, the subscription sign-in, then a check that it worked). Exit codes tell the cases apart: 0 Claude's plan, 1 a problem with what was given, 2 Claude Code missing or not on a subscription, 3 Claude's plan could not be used so MySkate's own plan was shown, 4 a bug in MySkate Coach itself.
+- `lib/format.js`: the plan for the terminal (color only in a terminal, wrapped to its width, a date like "Oct 7" kept on one line) and as Markdown (text from the model and the notes escaped, with a line saying where the plan came from and what was checked).
+
+### Verified
+
+`npm test`: 62 tests pass. The 17 new ones run the real command against the stand-in: a good plan (checked, shown, saved, logged); a plan fixed on the second try; a plan that fails twice (exit 3, MySkate's own plan, the reason); a usage limit (asked once, exit 3); an answer without a plan, Claude Code's own schema giving up, and a plan in a code fence; not signed in and signed in with an API key (Claude never asked, exit 2); an API key in the environment (left out, and the skater is told); Claude Code missing; `--brief` and `--myskate` (Claude never asked); the newest backup found in iCloud Drive's Downloads, and a clear message when there is none; a locked backup without a terminal; and eight bad options.
+
+Also run by hand against the stand-in and read: the terminal output and the saved plan for the made-up skater.
+
+### Not verified
+
+A real Claude Code run, and the passphrase prompt in a real terminal (the tests can only check that it is not offered without one).
