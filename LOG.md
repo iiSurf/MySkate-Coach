@@ -93,3 +93,32 @@ Step 4: every check on Claude's reply, in one pure function, with a test for eac
 ### Not verified, and a known limit
 
 The number check makes sure each number in a reason appears in a fact the reason cites. It catches invented numbers, not every mix-up: "not practiced in 2 weeks" passes for the waltz jump because 2 is one of its last ratings. A test shows this, and README.md will say it.
+
+## 2026-10-23 (Friday): talking to Claude Code
+
+### Plan
+
+Step 5, first half: the one file that talks to the model, Claude's instructions, the reply's shape, and a stand-in for Claude Code so the tests never call the model. Before writing it, the official Claude Code docs were checked for how headless mode reports its answer, how sign-in works, and how to keep a run clean.
+
+### What the docs said (and changed)
+
+- An API key always wins in headless mode, even over a subscription sign-in, and so does an `apiKeyHelper` in settings or `ANTHROPIC_AUTH_TOKEN`. So the coach does two things: it leaves every `ANTHROPIC_*` variable and the cloud-provider switches (`CLAUDE_CODE_USE_*`) out of the environment it gives Claude Code, and it asks `claude auth status` first and refuses to run unless the sign-in is a Claude subscription (`claude.ai`, or a `setup-token` token).
+- With `--json-schema`, Claude Code checks the reply's shape itself and retries up to 5 times; the answer is in `structured_output`. If it gives up, that is the model's failure, so the coach treats it as an empty reply that its own checker refuses (and the one retry can fix).
+- `--safe-mode` turns off CLAUDE.md, skills, hooks, plugins, MCP servers, and auto memory while keeping the sign-in. `--bare` would need an API key, so it is not used.
+- The cost number Claude Code prints is an estimate at list price, not a charge, on a subscription.
+- Not settled by the docs: whether `--tools ""` also takes away the tool Claude Code uses to return schema-checked JSON. The coach reads the answer either way (from `structured_output`, or from JSON in the text), and the live run will show which.
+
+### Changes
+
+- `prompts/coach.md`: Claude's instructions: what to decide, what makes a good plan, the reply's fields, digits only and numbers only from the cited facts, and never invent technique advice.
+- `prompts/reply.schema.json`: the reply's shape only (fields and types). What the reply means is checked by `lib/check.js`.
+- `lib/claude.js`: finds Claude Code (`CLAUDE_BIN`, the PATH, or the copy inside the Claude desktop app), cleans the environment, checks the sign-in, and runs `claude -p --output-format json --model sonnet --system-prompt <coach.md> --tools "" --safe-mode --strict-mcp-config --disable-slash-commands --no-session-persistence --json-schema <shape>` in an empty temporary folder, with the brief on stdin and a 3-minute limit. It hands back what came back, and sorts Claude Code's own failures (not signed in, a usage limit, too slow, could not start) from answers for the checker.
+- `tests/fake-claude.mjs` and `tests/fixtures/outputs/`: a stand-in for Claude Code that answers `auth status` and prints recorded answers, and records what it was given (never the values of environment variables).
+
+### Verified
+
+`npm test`: 37 tests pass. The new ones check that API keys, cloud-provider switches, and session markers are left out of the environment; which Claude Code is found (newest desktop copy by version number, not by alphabet); the arguments (no tools, safe mode, no MCP servers, no saved session, the shape, never `--bare` or a permissions bypass); that only a subscription sign-in is accepted; how answers and failures are read; and, with the stand-in run as a real process, that the brief arrives on stdin, the run happens in an empty folder that is removed after, the API key never arrives, and a run that takes too long is stopped.
+
+### Not verified
+
+A real Claude Code run. Claude Code is not signed in on this Mac yet (the owner will run `npm run signin`).

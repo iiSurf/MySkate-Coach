@@ -1,0 +1,1 @@
+{ "type": "result", "subtype": "error_max_structured_output_retries", "is_error": true, "errors": ["Structured output did not match the schema after 5 attempts"], "exit": 1 }
