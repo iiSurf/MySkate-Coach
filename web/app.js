@@ -101,6 +101,8 @@
         it.focus ? el("p", { class: "focus" }, "Focus: “" + it.focus + "”") : null));
     });
     $("planCard").hidden = false;
+    // on a phone the plan is below the steps: bring it into view
+    if (window.innerWidth < 960) $("planCard").scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
   }
 
   /* ---------- live: the local server ---------- */

@@ -120,7 +120,7 @@ test("asks the stand-in for Claude Code: the brief on stdin, in an empty folder 
   const r = await askClaude({ bin: FAKE, prompt: "THE BRIEF", env, workdir: join(dir, ".run"), timeoutMs: 20_000 });
   assert.equal(r.ok, true);
   assert.deepEqual(r.reply, GOOD);
-  assert.equal(r.meta.model, "claude-sonnet-fake");
+  assert.equal(r.meta.model, "stand-in");
   const seen = JSON.parse(readFileSync(log, "utf8").trim());
   assert.equal(seen.brief, "THE BRIEF");
   assert.deepEqual(seen.cwdFiles, []);

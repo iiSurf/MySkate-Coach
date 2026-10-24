@@ -252,3 +252,20 @@ The owner tried the Portfolio card: everything worked, but the button opened the
 ### Verified
 
 `npm test`: 69 tests pass. The 5 new ones run the server for real with the stand-in for Claude Code: it refuses a request that is not for localhost and every file outside the page's own (including paths that climb out with `..`); the status lists the made-up skater and the backups in `backups/` without any path; a good run sends its steps in order and saves the plan and a run log that keeps them; a plan that fails twice ends with MySkate's own plan and the reason; a backup outside the list, a bad ice time, and an API-key sign-in each end with a plain message (Claude never asked).
+
+## 2026-10-24 (Saturday): recordings for the demo, and the live app tried for real
+
+### Changes
+
+- `tools/record-demo.mjs`: copies the steps of a real run of the app (from its run log, made-up skater only, no paths) into `demo/runs/`, and records the two stand-in runs with the test stand-in. `demo/runs/index.json` lists them for the page.
+- Recorded: a real 60-minute plan for tomorrow (Claude answered in 8.8 seconds) and a real 30-minute plan for today (7.6 seconds), both made in the app's page and passing every check; and, with the stand-in, a plan fixed on the second try and one that falls back to MySkate's own suggestion.
+- The stand-in now calls its model "stand-in", so the recordings say so. MySkate's own plan now sums itself up as "The skills MySkate itself suggests next, with your ice time shared out evenly", so the page no longer says twice that Claude's plan could not be used. On a phone the plan scrolls into view when it arrives.
+- Fixed: the first stand-in recording of "fixed on the second try" failed twice, because the recorder did not tell the stand-in which answer was next.
+
+### Verified
+
+`npm test`: 69 pass. `npm run app` started from a terminal: the page found MySkate and the subscription sign-in, and two real plans were made through it, at 1280 and 390 wide (no sideways scrolling; a slow first try at 390 was my own check script blocking the page, and the same plan run straight against the server took 8 seconds). The demo page served by a plain static server (as on GitHub Pages, with no app behind it) says it is a recording, lists the four runs, and plays the real 60-minute run and the stand-in fallback back to their plans at 1280 and 390 wide.
+
+### Not verified
+
+The demo on GitHub Pages itself (Pages is not turned on for this repository yet), a real phone, Safari, and Firefox. Starting the app from the Claude app's own preview did not work (it never began listening), so it was started from a terminal, the way the README says.

@@ -63,7 +63,7 @@ test("a plan that fails twice is not used: MySkate's own plan is, and it says wh
   assert.equal(r.source, "myskate");
   assert.equal(r.reason, "Claude's plan did not pass the checks twice.");
   assert.equal(r.attempts.length, 2);
-  assert.equal(r.plan.summary, "MySkate's own suggestion, because Claude's plan could not be used.");
+  assert.equal(r.plan.summary, "The skills MySkate itself suggests next, with your ice time shared out evenly.");
 });
 
 test("an answer that is not JSON, or no answer at all, is retried like any other failed check", async () => {

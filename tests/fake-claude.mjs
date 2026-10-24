@@ -23,7 +23,7 @@ if (log) appendFileSync(log, JSON.stringify({ args, brief, cwd: process.cwd(), c
 const answers = (process.env.FAKE_CLAUDE_REPLIES || "").split("|").filter(Boolean);
 const [kind, file] = (answers[Math.min(runs, answers.length - 1)] || "raw:").split(/:(.*)/s);
 const read = () => JSON.parse(readFileSync(file, "utf8"));
-const success = (fields) => ({ type: "result", subtype: "success", is_error: false, num_turns: 1, duration_ms: 1200, total_cost_usd: 0.01, usage: { input_tokens: 3000, output_tokens: 400 }, modelUsage: { "claude-sonnet-fake": { inputTokens: 3000, outputTokens: 400 } }, ...fields });
+const success = (fields) => ({ type: "result", subtype: "success", is_error: false, num_turns: 1, duration_ms: 1200, total_cost_usd: 0.01, usage: { input_tokens: 3000, output_tokens: 400 }, modelUsage: { "stand-in": { inputTokens: 3000, outputTokens: 400 } }, ...fields });
 
 if (kind === "reply") process.stdout.write(JSON.stringify(success({ result: "", structured_output: read() })));
 else if (kind === "text") process.stdout.write(JSON.stringify(success({ result: "```json\n" + JSON.stringify(read(), null, 2) + "\n```" })));

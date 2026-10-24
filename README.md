@@ -4,6 +4,13 @@ Plans your next figure skating session from a [MySkate](https://github.com/iiSur
 
 Built with Claude Code for TCSS 490, Artifact 3 ("AI Inside It"). It runs Claude Code headless (`claude -p`) on a Claude subscription sign-in, so it costs nothing beyond Claude Code access and never uses an API key.
 
+## The app
+
+- **Try the demo:** https://iisurf.github.io/MySkate-Coach/ plays back recorded runs of the app with a made-up skater, step by step. It says so on the page: Claude can't run on a public page without a paid API key.
+- **Run it live on your Mac:** `npm run app`, then open http://localhost:8790. Pick a backup (or the made-up skater), the ice time, and the day, and press "Plan my session". The page shows each step as it happens, who did it (the code or Claude), every check passed or failed, and then the plan, with what Claude was given and its reply underneath. Press Ctrl-C in the terminal to stop it.
+- The app runs the same steps as the command below (`npm run coach`), and saves each run the same way. It answers only on this Mac (localhost), serves only its own page, and reads backups only from `backups/`.
+- The demo's recordings are in `demo/runs/`. The two marked "stand-in" (a plan fixed on the second try, and one that falls back to MySkate's own suggestion) use the recorded replies the tests use in Claude's place; the other two are real runs. `node tools/record-demo.mjs` makes them.
+
 ## What a run looks like
 
 The first real run, with the made-up skater in `tests/fixtures/backup.json` (Claude Sonnet 5.5, October 23, 2026, about 8 seconds):
@@ -159,7 +166,9 @@ The tests never call Claude: `tests/fake-claude.mjs` stands in for Claude Code w
 
 ## Files
 
+- `app.mjs`, `index.html`, `web/`: the app (`npm run app`) and its page, which is also the demo on GitHub Pages; `demo/runs/` holds the demo's recordings.
 - `coach.mjs`: the command.
+- `lib/run.js`: saving a run, for the command and the app.
 - `lib/claude.js`: the only code that talks to Claude.
 - `lib/check.js`: every check on Claude's reply.
 - `lib/brief.js`: the facts and the list of skills Claude is given.
