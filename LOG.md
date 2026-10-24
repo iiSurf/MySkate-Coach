@@ -40,3 +40,19 @@ TCSS 490 Artifact 3, "AI Inside It": something where a model does real work ever
 ### Verified
 
 Nothing yet: this entry is the plan.
+
+## 2026-10-23 (Friday): reading a backup with MySkate's own code
+
+### Plan
+
+Step 2: find the newest MySkate backup and read it the way MySkate does, so the coach never sees anything MySkate would not.
+
+### Changes
+
+- `lib/myskate.js`: finds MySkate (the folder next to this one, or `MYSKATE_DIR`) and loads its modules and its catalog from disk, the same way MySkate's own tests do. Nothing is copied and nothing is written there.
+- `lib/backup.js`: the newest `myskate-backup-*.json` in Downloads or iCloud Drive (where an iPhone's Files app saves), read through MySkate's `parseBackup` (which cleans everything with `sanitizeState`). A locked backup is unlocked with MySkate's own `decryptBackup`; the passphrase is asked for and never kept.
+- `tests/make-fixture.mjs` and `tests/fixtures/backup.json`: a made-up skater ("Sam", Pre-Free Skate, 10 sessions from Sep 21 to Oct 22, 2026, homework, goals, a test, a competition and its program, a friend, and a rink), built and cleaned with MySkate's own code.
+
+### Verified
+
+`npm test`: 6 tests pass (finding MySkate, the newest backup across folders, reading the made-up backup, a locked backup with the right and wrong passphrase, and MySkate's own messages for files that are not backups).

@@ -1,0 +1,529 @@
+{
+  "app": "MySkate",
+  "exportedAt": "2026-10-24T02:30:00.000Z",
+  "schemaVersion": 1,
+  "createdAt": "2026-10-24T02:30:00.000Z",
+  "profile": {
+    "name": "Sam",
+    "levels": {
+      "skills": "lts-freeskate/pre-free-skate",
+      "jumps": "lts-freeskate/pre-free-skate"
+    },
+    "defaultSlotMin": 60,
+    "onboarded": true,
+    "tourSeen": true,
+    "defaultCost": 18,
+    "badgesSeen": null,
+    "cardId": "card-sam",
+    "test": {
+      "id": "pre-preliminary",
+      "date": "2026-11-16"
+    },
+    "look": "sky"
+  },
+  "blades": {
+    "name": "Freestyle blades",
+    "limitHours": 25,
+    "baseHours": 3,
+    "lifetimeBase": 40,
+    "countedFrom": "2026-09-01T12:00:00.000Z"
+  },
+  "sharpenings": [],
+  "sessions": [
+    {
+      "id": "s1",
+      "date": "2026-09-21",
+      "startedAt": "2026-09-21T13:00:00.000Z",
+      "bookedMin": 60,
+      "onIceSec": 3000,
+      "entries": [
+        {
+          "skillId": "pre-free-skate.waltz-jump",
+          "stars": 2,
+          "landed": 3,
+          "attempts": 10,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.one-foot-upright-spin",
+          "stars": 2,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.fi-open-mohawk",
+          "stars": 3,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.bkwd-xovers-bo-glide",
+          "stars": 3,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        }
+      ],
+      "note": "",
+      "cost": 18
+    },
+    {
+      "id": "s2",
+      "date": "2026-09-26",
+      "startedAt": "2026-09-26T13:00:00.000Z",
+      "bookedMin": 60,
+      "onIceSec": 3300,
+      "entries": [
+        {
+          "skillId": "pre-free-skate.waltz-jump",
+          "stars": 2,
+          "landed": 4,
+          "attempts": 12,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.bkwd-xovers-bo-glide",
+          "stars": 3,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.bo-to-fo-transition",
+          "stars": 2,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        }
+      ],
+      "note": "",
+      "cost": 18
+    },
+    {
+      "id": "s3",
+      "date": "2026-09-30",
+      "startedAt": "2026-09-30T13:00:00.000Z",
+      "bookedMin": 60,
+      "onIceSec": 3120,
+      "entries": [
+        {
+          "skillId": "pre-free-skate.fi-open-mohawk",
+          "stars": 4,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.waltz-jump",
+          "stars": 2,
+          "landed": 5,
+          "attempts": 12,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.one-foot-upright-spin",
+          "stars": 2,
+          "landed": 0,
+          "attempts": 0,
+          "note": "Traveling a lot, stay on the ball of the foot"
+        }
+      ],
+      "note": "",
+      "cost": 18
+    },
+    {
+      "id": "s4",
+      "date": "2026-10-03",
+      "startedAt": "2026-10-03T13:00:00.000Z",
+      "bookedMin": 60,
+      "onIceSec": 3480,
+      "entries": [
+        {
+          "skillId": "pre-free-skate.bkwd-xovers-bo-glide",
+          "stars": 4,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.bo-to-fo-transition",
+          "stars": 3,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.xover-mohawk-sequence",
+          "stars": 2,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        }
+      ],
+      "note": "",
+      "cost": 22
+    },
+    {
+      "id": "s5",
+      "date": "2026-10-07",
+      "startedAt": "2026-10-07T13:00:00.000Z",
+      "bookedMin": 60,
+      "onIceSec": 3000,
+      "entries": [
+        {
+          "skillId": "pre-free-skate.one-foot-upright-spin",
+          "stars": 2,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.waltz-jump",
+          "stars": 3,
+          "landed": 6,
+          "attempts": 12,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.fi-open-mohawk",
+          "stars": 4,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        }
+      ],
+      "note": "",
+      "cost": 18
+    },
+    {
+      "id": "s6",
+      "date": "2026-10-10",
+      "startedAt": "2026-10-10T13:00:00.000Z",
+      "bookedMin": 60,
+      "onIceSec": 3420,
+      "entries": [
+        {
+          "skillId": "pre-free-skate.bkwd-xovers-bo-glide",
+          "stars": 4,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.xover-mohawk-sequence",
+          "stars": 2,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.waltz-jump",
+          "stars": 3,
+          "landed": 5,
+          "attempts": 12,
+          "note": ""
+        }
+      ],
+      "note": "",
+      "cost": 18
+    },
+    {
+      "id": "s7",
+      "date": "2026-10-14",
+      "startedAt": "2026-10-14T13:00:00.000Z",
+      "bookedMin": 60,
+      "onIceSec": 2700,
+      "entries": [
+        {
+          "skillId": "pre-free-skate.bo-to-fo-transition",
+          "stars": 3,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.waltz-jump",
+          "stars": 3,
+          "landed": 7,
+          "attempts": 14,
+          "note": ""
+        }
+      ],
+      "note": "",
+      "cost": 18
+    },
+    {
+      "id": "s8",
+      "date": "2026-10-17",
+      "startedAt": "2026-10-17T13:00:00.000Z",
+      "bookedMin": 60,
+      "onIceSec": 3300,
+      "entries": [
+        {
+          "skillId": "pre-free-skate.fi-open-mohawk",
+          "stars": 5,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.xover-mohawk-sequence",
+          "stars": 3,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.waltz-jump",
+          "stars": 2,
+          "landed": 3,
+          "attempts": 12,
+          "note": "Rushed the entry"
+        }
+      ],
+      "note": "",
+      "cost": 18
+    },
+    {
+      "id": "s9",
+      "date": "2026-10-20",
+      "startedAt": "2026-10-20T13:00:00.000Z",
+      "bookedMin": 60,
+      "onIceSec": 3120,
+      "entries": [
+        {
+          "skillId": "pre-free-skate.bkwd-xovers-bo-glide",
+          "stars": 4,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.bo-to-fo-transition",
+          "stars": 3,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.waltz-jump",
+          "stars": 3,
+          "landed": 5,
+          "attempts": 12,
+          "note": "Landed better after slowing the entry"
+        }
+      ],
+      "note": "",
+      "cost": 18
+    },
+    {
+      "id": "s10",
+      "date": "2026-10-22",
+      "startedAt": "2026-10-22T13:00:00.000Z",
+      "bookedMin": 60,
+      "onIceSec": 3300,
+      "entries": [
+        {
+          "skillId": "pre-free-skate.waltz-jump",
+          "stars": 3,
+          "landed": 4,
+          "attempts": 12,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.xover-mohawk-sequence",
+          "stars": 3,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.bo-to-fo-transition",
+          "stars": 3,
+          "landed": 0,
+          "attempts": 0,
+          "note": ""
+        },
+        {
+          "skillId": "pre-free-skate.fi-open-mohawk",
+          "stars": 4,
+          "landed": 0,
+          "attempts": 0,
+          "note": "Keep the free hip square"
+        }
+      ],
+      "note": "",
+      "cost": 18
+    }
+  ],
+  "plan": {
+    "slotMin": 60,
+    "skillIds": [],
+    "cost": null
+  },
+  "cues": {
+    "pre-free-skate.waltz-jump": "Bend the knee and check the landing for a count of 3",
+    "pre-free-skate.one-foot-upright-spin": "Find the ball of the foot, arms in slowly"
+  },
+  "friends": [
+    {
+      "id": "f1",
+      "name": "Alex",
+      "level": 5,
+      "xpWeek": 120,
+      "xpTotal": 2400,
+      "streak": 3,
+      "badges": 9,
+      "hours": 41.5,
+      "look": "",
+      "updatedAt": "2026-10-20T18:00:00.000Z"
+    }
+  ],
+  "testChecks": {},
+  "goals": [
+    {
+      "id": "g1",
+      "skillId": "pre-free-skate.waltz-jump",
+      "target": 4,
+      "date": "2026-11-15",
+      "created": "2026-10-01"
+    },
+    {
+      "id": "g2",
+      "skillId": "pre-free-skate.fi-open-mohawk",
+      "target": 4,
+      "date": "",
+      "created": "2026-09-20"
+    }
+  ],
+  "homework": [
+    {
+      "id": "hw1",
+      "text": "3 sets of back crossovers each way before every session",
+      "skillId": "pre-free-skate.bkwd-xovers-bo-glide",
+      "due": "2026-10-26",
+      "done": false,
+      "doneOn": "",
+      "created": "2026-10-17"
+    },
+    {
+      "id": "hw2",
+      "text": "Try the mazurka on both sides, slowly",
+      "skillId": "pre-free-skate.mazurka",
+      "due": "2026-10-31",
+      "done": false,
+      "doneOn": "",
+      "created": "2026-10-20"
+    },
+    {
+      "id": "hw3",
+      "text": "Stretch after skating",
+      "skillId": "",
+      "due": "",
+      "done": true,
+      "doneOn": "2026-10-18",
+      "created": "2026-10-10"
+    }
+  ],
+  "offIce": [],
+  "events": [
+    {
+      "id": "ev0",
+      "name": "Summer Skate",
+      "date": "2026-08-15",
+      "place": "Lakeside Ice Arena",
+      "note": "",
+      "day": [],
+      "bring": [],
+      "result": {
+        "programId": "",
+        "placing": 2,
+        "of": 6,
+        "marks": {},
+        "note": "Fun!",
+        "coach": "",
+        "recordedOn": ""
+      }
+    },
+    {
+      "id": "ev1",
+      "name": "Fall Classic",
+      "date": "2026-11-08",
+      "place": "Lakeside Ice Arena",
+      "note": "",
+      "day": [],
+      "bring": [],
+      "result": null
+    }
+  ],
+  "programs": [
+    {
+      "id": "pr1",
+      "name": "Fall Classic free skate",
+      "music": {
+        "title": "",
+        "artist": ""
+      },
+      "lengthSec": 90,
+      "kind": "free",
+      "eventId": "ev1",
+      "note": "",
+      "elements": [
+        {
+          "id": "e1",
+          "label": "Waltz jump",
+          "type": "jump",
+          "skillId": "pre-free-skate.waltz-jump",
+          "x": 0.3,
+          "y": 0.4,
+          "at": 12,
+          "dur": 4
+        },
+        {
+          "id": "e2",
+          "label": "Crossover mohawk sequence",
+          "type": "steps",
+          "skillId": "pre-free-skate.xover-mohawk-sequence",
+          "x": 0.6,
+          "y": 0.5,
+          "at": 30,
+          "dur": 12
+        },
+        {
+          "id": "e3",
+          "label": "One-foot upright spin",
+          "type": "spin",
+          "skillId": "pre-free-skate.one-foot-upright-spin",
+          "x": 0.5,
+          "y": 0.5,
+          "at": 70,
+          "dur": 8
+        }
+      ],
+      "moments": [],
+      "created": ""
+    }
+  ],
+  "rinks": [
+    {
+      "id": "r1",
+      "name": "Lakeside Ice Arena",
+      "city": "Tacoma",
+      "url": "",
+      "color": "#5fd8e6",
+      "updated": ""
+    }
+  ],
+  "iceSessions": [],
+  "iceView": {
+    "kinds": [],
+    "rinkIds": [],
+    "picksOnly": false
+  },
+  "settings": {
+    "light": "golden",
+    "contrast": false
+  }
+}
