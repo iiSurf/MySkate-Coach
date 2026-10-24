@@ -221,3 +221,18 @@ The run itself, its run log (one attempt, no problems, `claude.ai` sign-in, `str
 ### Not verified
 
 A real run that fails a check and retries (the tests cover it with the stand-in); a run with the owner's own backup; the passphrase prompt in a real terminal. Whether CLAUDE.md files reach the model is not observed directly: safe mode and `CLAUDE_CODE_DISABLE_CLAUDE_MDS` are both documented to keep them out.
+
+## 2026-10-23 (Friday): on GitHub
+
+### Plan
+
+The owner created the empty public repository `iiSurf/MySkate-Coach` and asked to push it, then the Portfolio, and to check both live.
+
+### Changes
+
+- Pushed `main` (10 commits, 37 files: the code, tests, docs, prompts, and made-up test data) to https://github.com/iiSurf/MySkate-Coach. Backups, run logs, plans, and scratch folders stay on the Mac (`.gitignore`). The repository was checked to be empty first, and nothing was forced.
+- The Portfolio's Artifact 3 card, which links here, was pushed after this, so the link never pointed at a missing page.
+
+### Verified
+
+`npm test` (64 pass) just before the push. The repository page on GitHub: public, every file there, and the README rendered with all its sections and the table of what Claude decides and what the code checks. The live Portfolio card opens this repository in a new tab.
