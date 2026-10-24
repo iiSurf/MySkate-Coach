@@ -2,8 +2,8 @@
 node_modules/
 *.pdf
 # Run logs and saved plans hold the skater's own data.
-runs/
-plans/
+/runs/
+/plans/
 # Claude Code's empty working folders, and the tests' scratch folders.
 .run/
 .tmp/

@@ -1,0 +1,288 @@
+[
+ {
+  "t": 5,
+  "type": "reading",
+  "data": {
+   "file": "the made-up skater's backup"
+  }
+ },
+ {
+  "t": 12,
+  "type": "read",
+  "data": {
+   "sessions": 10,
+   "first": "2026-09-21",
+   "last": "2026-10-22"
+  }
+ },
+ {
+  "t": 13,
+  "type": "brief",
+  "data": {
+   "facts": 32,
+   "skills": 19,
+   "text": "Plan one practice session for Sat, Oct 24: 60 minutes on the ice.\n\nFacts from the skater's MySkate log:\nD1 Today is Fri, Oct 23, 2026. The plan is for Sat, Oct 24: 60 minutes on the ice.\nL1 Levels: skating skills at Pre-Free Skate, jumps and spins at Pre-Free Skate.\nW1 Last 4 weeks: 9 sessions, 7 hrs 59 mins on the ice.\nR1 Thu, Oct 22 (yesterday): 55 minutes on the ice, 4 skills rated.\nR2 Tue, Oct 20 (3 days ago): 52 minutes on the ice, 3 skills rated.\nR3 Sat, Oct 17 (6 days ago): 55 minutes on the ice, 3 skills rated.\nR4 Wed, Oct 14 (9 days ago): 45 minutes on the ice, 2 skills rated.\nR5 Sat, Oct 10 (13 days ago): 57 minutes on the ice, 3 skills rated.\nH1 Homework from the coach for Backward crossovers to a backward outside edge glide, due Mon, Oct 26 (in 3 days): \"3 sets of back crossovers each way before every session\".\nH2 Homework from the coach for Mazurka, due Sat, Oct 31 (in 8 days): \"Try the mazurka on both sides, slowly\".\nG1 Goal: Waltz jump to 4 stars by Sun, Nov 15 (in 23 days); now 3 stars.\nT1 Test: the Pre-preliminary skating skills test on Mon, Nov 16 (in 24 days).\nE1 Competition: Fall Classic on Sun, Nov 8 (in 16 days). Their program for it has Waltz jump; Two forward crossovers into a forward inside mohawk, step down and cross behind, one backward crossover, step to a forward inside edge; One-foot upright spin.\nS1 Backward crossovers to a backward outside edge glide (clockwise and counterclockwise) [pre-free-skate.bkwd-xovers-bo-glide]: skating skill, homework, on their level, practiced lately. Latest 4 stars on Tue, Oct 20, best 4, rated in 5 sessions, last ratings 4, 4, 4. Last practiced Tue, Oct 20 (3 days ago). Earned (4 stars or more).\nS2 Mazurka (right or left) [pre-free-skate.mazurka]: skating skill, homework, on their level. Not tried yet. MySkate's own pick: new.\nS3 Waltz jump [pre-free-skate.waltz-jump]: jump, a goal, in the Fall Classic program, on their level, practiced lately. Latest 3 stars on Thu, Oct 22, best 3, rated in 9 sessions, last ratings 2, 3, 3. Landed 4 of 12 on Thu, Oct 22; 42 of 108 in all (39%). Last practiced Thu, Oct 22 (yesterday). MySkate's own pick: needs work. Their cue: \"Bend the knee and check the landing for a count of 3\". Their notes: \"Landed better after slowing the entry\" (Tue, Oct 20); \"Rushed the entry\" (Sat, Oct 17).\nS4 Two forward crossovers into a forward inside mohawk, step down and cross behind, one backward crossover, step to a forward inside edge (clockwise and counterclockwise) [pre-free-skate.xover-mohawk-sequence]: skating skill, in the Fall Classic program, on their level, practiced lately. Latest 3 stars on Thu, Oct 22, best 3, rated in 4 sessions, last ratings 2, 3, 3. Last practiced Thu, Oct 22 (yesterday). MySkate's own pick: needs work.\nS5 One-foot upright spin (3+ revolutions, entry and free foot position optional) [pre-free-skate.one-foot-upright-spin]: spin, in the Fall Classic program, on their level, practiced lately. Latest 2 stars on Wed, Oct 7, best 2, rated in 3 sessions, last ratings 2, 2, 2. Last practiced Wed, Oct 7 (16 days ago). MySkate's own pick: needs work. Their cue: \"Find the ball of the foot, arms in slowly\". Their notes: \"Traveling a lot, stay on the ball of the foot\" (Wed, Sep 30).\nS6 Forward inside open mohawk from a standstill (right to left and left to right) [pre-free-skate.fi-open-mohawk]: skating skill, on their level, practiced lately. Latest 4 stars on Thu, Oct 22, best 5, rated in 5 sessions, last ratings 4, 5, 4. Last practiced Thu, Oct 22 (yesterday). Earned (4 stars or more). Their notes: \"Keep the free hip square\" (Thu, Oct 22).\nS7 Backward outside edge to forward outside edge transition (clockwise and counterclockwise) [pre-free-skate.bo-to-fo-transition]: skating skill, on their level, practiced lately. Latest 3 stars on Thu, Oct 22, best 3, rated in 5 sessions, last ratings 3, 3, 3. Last practiced Thu, Oct 22 (yesterday). MySkate's own pick: needs work.\nS8 Backward inside pivots (clockwise and counterclockwise) [pre-free-skate.bkwd-inside-pivots]: skating skill, on their level, a bonus skill. Not tried yet.\nS9 Forward Perimeter Stroking [ss.pre-preliminary.fwd-perimeter-stroking]: skating skill, on their Pre-preliminary test. Not tried yet.\nS10 Basic Consecutive Edges [ss.pre-preliminary.basic-consecutive-edges]: skating skill, on their Pre-preliminary test. Not tried yet.\nS11 Forward Right and Left Foot Spirals [ss.pre-preliminary.fwd-spirals]: skating skill, on their Pre-preliminary test. Not tried yet.\nS12 Waltz Eight [ss.pre-preliminary.waltz-eight]: skating skill, on their Pre-preliminary test. Not tried yet.\nS13 Forward power stroking (clockwise and counterclockwise) [free-skate-1.fwd-power-stroking]: skating skill, next level. Not tried yet.\nS14 Basic forward outside and inside consecutive edges (4-6) [free-skate-1.consecutive-edges]: skating skill, next level. Not tried yet.\nS15 Backward outside three-turns (right and left) [free-skate-1.bo-three-turns]: skating skill, next level. Not tried yet.\nS16 Upright spin entered from back crossovers (4-6 revolutions) [free-skate-1.upright-spin-back-xovers]: spin, next level. Not tried yet.\nS17 Half flip [free-skate-1.half-flip]: jump, next level. Not tried yet.\nS18 Toe loop [free-skate-1.toe-loop]: jump, next level. Not tried yet.\nS19 Waltz jump, side toe hop, waltz jump sequence, or waltz jump, ballet jump, toe loop sequence [free-skate-1.bonus-jump-options]: jump, next level, a bonus skill. Not tried yet.\n\nSkills you may choose (copy the skillId exactly):\n- pre-free-skate.bkwd-xovers-bo-glide (Backward crossovers to a backward outside edge glide), fact S1\n- pre-free-skate.mazurka (Mazurka), fact S2\n- pre-free-skate.waltz-jump (Waltz jump), fact S3\n- pre-free-skate.xover-mohawk-sequence (Two forward crossovers into a forward inside mohawk, step down and cross behind, one backward crossover, step to a forward inside edge), fact S4\n- pre-free-skate.one-foot-upright-spin (One-foot upright spin), fact S5\n- pre-free-skate.fi-open-mohawk (Forward inside open mohawk from a standstill), fact S6\n- pre-free-skate.bo-to-fo-transition (Backward outside edge to forward outside edge transition), fact S7\n- pre-free-skate.bkwd-inside-pivots (Backward inside pivots), fact S8\n- ss.pre-preliminary.fwd-perimeter-stroking (Forward Perimeter Stroking), fact S9\n- ss.pre-preliminary.basic-consecutive-edges (Basic Consecutive Edges), fact S10\n- ss.pre-preliminary.fwd-spirals (Forward Right and Left Foot Spirals), fact S11\n- ss.pre-preliminary.waltz-eight (Waltz Eight), fact S12\n- free-skate-1.fwd-power-stroking (Forward power stroking), fact S13\n- free-skate-1.consecutive-edges (Basic forward outside and inside consecutive edges), fact S14\n- free-skate-1.bo-three-turns (Backward outside three-turns), fact S15\n- free-skate-1.upright-spin-back-xovers (Upright spin entered from back crossovers), fact S16\n- free-skate-1.half-flip (Half flip), fact S17\n- free-skate-1.toe-loop (Toe loop), fact S18\n- free-skate-1.bonus-jump-options (Waltz jump, side toe hop, waltz jump sequence, or waltz jump, ballet jump, toe loop sequence), fact S19\n\nReply with 2 to 6 skills. Minutes come in steps of 5, at least 5 each, and add up to exactly 60.",
+   "date": "2026-10-24",
+   "slotMin": 60
+  }
+ },
+ {
+  "t": 40,
+  "type": "asking",
+  "data": {
+   "n": 1,
+   "model": "sonnet"
+  }
+ },
+ {
+  "t": 67,
+  "type": "answered",
+  "data": {
+   "n": 1,
+   "ok": true,
+   "seconds": 0,
+   "model": "stand-in",
+   "message": "",
+   "reply": {
+    "summary": "Homework and your waltz jump first, then the spin you have not touched since Oct 7.",
+    "items": [
+     {
+      "skillId": "pre-free-skate.bkwd-xovers-bo-glide",
+      "minutes": 10,
+      "why": "Homework due Monday: 3 sets each way",
+      "facts": [
+       "H1",
+       "S1"
+      ],
+      "focus": "3 sets of back crossovers each way"
+     },
+     {
+      "skillId": "pre-free-skate.waltz-jump",
+      "minutes": 25,
+      "why": "4 of 12 landed Thursday; your goal is 4 stars by Nov 15",
+      "facts": [
+       "S3",
+       "G1"
+      ],
+      "focus": "check the landing for a count of 3"
+     },
+     {
+      "skillId": "pre-free-skate.one-foot-upright-spin",
+      "minutes": 15,
+      "why": "2 stars and not practiced in 16 days; it's in your program",
+      "facts": [
+       "S5",
+       "E1"
+      ],
+      "focus": "Find the ball of the foot, arms in slowly"
+     },
+     {
+      "skillId": "pre-free-skate.mazurka",
+      "minutes": 10,
+      "why": "New homework: try it on both sides",
+      "facts": [
+       "H2",
+       "S2"
+      ],
+      "focus": ""
+     },
+     {
+      "skillId": "pre-free-skate.xover-mohawk-sequence",
+      "minutes": 5,
+      "why": "In your Fall Classic program, 3 stars now",
+      "facts": [
+       "S4",
+       "E1"
+      ],
+      "focus": ""
+     }
+    ]
+   }
+  }
+ },
+ {
+  "t": 67,
+  "type": "checked",
+  "data": {
+   "n": 1,
+   "ok": false,
+   "problems": [
+    "The minutes add up to 65, not 60."
+   ],
+   "passed": []
+  }
+ },
+ {
+  "t": 67,
+  "type": "asking",
+  "data": {
+   "n": 2,
+   "model": "sonnet"
+  }
+ },
+ {
+  "t": 94,
+  "type": "answered",
+  "data": {
+   "n": 2,
+   "ok": true,
+   "seconds": 0,
+   "model": "stand-in",
+   "message": "",
+   "reply": {
+    "summary": "Homework and your waltz jump first, then the spin you have not touched since Oct 7.",
+    "items": [
+     {
+      "skillId": "pre-free-skate.bkwd-xovers-bo-glide",
+      "minutes": 10,
+      "why": "Homework due Monday: 3 sets each way",
+      "facts": [
+       "H1",
+       "S1"
+      ],
+      "focus": "3 sets of back crossovers each way"
+     },
+     {
+      "skillId": "pre-free-skate.waltz-jump",
+      "minutes": 20,
+      "why": "4 of 12 landed Thursday; your goal is 4 stars by Nov 15",
+      "facts": [
+       "S3",
+       "G1"
+      ],
+      "focus": "check the landing for a count of 3"
+     },
+     {
+      "skillId": "pre-free-skate.one-foot-upright-spin",
+      "minutes": 15,
+      "why": "2 stars and not practiced in 16 days; it's in your program",
+      "facts": [
+       "S5",
+       "E1"
+      ],
+      "focus": "Find the ball of the foot, arms in slowly"
+     },
+     {
+      "skillId": "pre-free-skate.mazurka",
+      "minutes": 10,
+      "why": "New homework: try it on both sides",
+      "facts": [
+       "H2",
+       "S2"
+      ],
+      "focus": ""
+     },
+     {
+      "skillId": "pre-free-skate.xover-mohawk-sequence",
+      "minutes": 5,
+      "why": "In your Fall Classic program, 3 stars now",
+      "facts": [
+       "S4",
+       "E1"
+      ],
+      "focus": ""
+     }
+    ]
+   }
+  }
+ },
+ {
+  "t": 95,
+  "type": "checked",
+  "data": {
+   "n": 2,
+   "ok": true,
+   "problems": [],
+   "passed": [
+    "5 skills, all from the list offered",
+    "60 of 60 minutes, in steps of 5",
+    "every number in the reasons is in your log",
+    "every focus is in your own words"
+   ]
+  }
+ },
+ {
+  "t": 95,
+  "type": "result",
+  "data": {
+   "source": "claude",
+   "retried": true,
+   "reason": "",
+   "plan": {
+    "date": "2026-10-24",
+    "slotMin": 60,
+    "summary": "Homework and your waltz jump first, then the spin you have not touched since Oct 7.",
+    "items": [
+     {
+      "skillId": "pre-free-skate.bkwd-xovers-bo-glide",
+      "minutes": 10,
+      "why": "Homework due Monday: 3 sets each way",
+      "facts": [
+       "H1",
+       "S1"
+      ],
+      "focus": "3 sets of back crossovers each way",
+      "name": "Backward crossovers to a backward outside edge glide"
+     },
+     {
+      "skillId": "pre-free-skate.waltz-jump",
+      "minutes": 20,
+      "why": "4 of 12 landed Thursday; your goal is 4 stars by Nov 15",
+      "facts": [
+       "S3",
+       "G1"
+      ],
+      "focus": "check the landing for a count of 3",
+      "name": "Waltz jump"
+     },
+     {
+      "skillId": "pre-free-skate.one-foot-upright-spin",
+      "minutes": 15,
+      "why": "2 stars and not practiced in 16 days; it's in your program",
+      "facts": [
+       "S5",
+       "E1"
+      ],
+      "focus": "Find the ball of the foot, arms in slowly",
+      "name": "One-foot upright spin"
+     },
+     {
+      "skillId": "pre-free-skate.mazurka",
+      "minutes": 10,
+      "why": "New homework: try it on both sides",
+      "facts": [
+       "H2",
+       "S2"
+      ],
+      "focus": "",
+      "name": "Mazurka"
+     },
+     {
+      "skillId": "pre-free-skate.xover-mohawk-sequence",
+      "minutes": 5,
+      "why": "In your Fall Classic program, 3 stars now",
+      "facts": [
+       "S4",
+       "E1"
+      ],
+      "focus": "",
+      "name": "Two forward crossovers into a forward inside mohawk, step down and cross behind, one backward crossover, step to a forward inside edge"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "t": 95,
+  "type": "saved",
+  "data": {
+   "planFile": "plans/2026-10-24.md",
+   "logFile": "runs/…"
+  }
+ },
+ {
+  "t": 95,
+  "type": "done",
+  "data": {}
+ }
+]

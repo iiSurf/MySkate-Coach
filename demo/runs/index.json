@@ -1,0 +1,30 @@
+[
+  {
+    "id": "tomorrow-60",
+    "title": "A 60-minute session for tomorrow",
+    "note": "A real run: Claude planned it in 9 seconds and it passed every check.",
+    "file": "tomorrow-60.json",
+    "standIn": false
+  },
+  {
+    "id": "today-30",
+    "title": "A 30-minute session for today",
+    "note": "A real run: Claude fitted five skills into half an hour, and it passed every check.",
+    "file": "today-30.json",
+    "standIn": false
+  },
+  {
+    "id": "fixed",
+    "title": "A plan fixed on the second try",
+    "note": "The first reply's minutes add up to 65 instead of 60; the checker sends it back once with that problem, and the second reply passes.",
+    "file": "fixed.json",
+    "standIn": true
+  },
+  {
+    "id": "fallback",
+    "title": "When the plan can't be used",
+    "note": "Both replies add up to 65 minutes, so the plan is not used: you get MySkate's own suggestion, and the reason.",
+    "file": "fallback.json",
+    "standIn": true
+  }
+]
