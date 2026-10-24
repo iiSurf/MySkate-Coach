@@ -1,13 +1,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { readFileSync } from "node:fs";
 import { makeBrief } from "../lib/brief.js";
 import { checkPlan } from "../lib/check.js";
 import { mySkatePlan } from "../lib/fallback.js";
 import { coach, retryPrompt, runLog, writeLog } from "../lib/pipeline.js";
-import { fixtureState, mySkate, TODAY } from "./helpers.js";
+import { fixtureState, mySkate, tempDir, TODAY } from "./helpers.js";
 
 const GOOD = JSON.parse(readFileSync(new URL("./fixtures/replies/good.json", import.meta.url), "utf8"));
 const changed = (fn) => {
@@ -119,7 +117,7 @@ test("the run log keeps every attempt, its problems, and the result, and is writ
   assert.deepEqual(log.result.source, "claude");
   assert.equal(log.attempts[1].prompt, r.prompts[1]);
   assert.deepEqual(log.brief, { date: "2026-10-24", slotMin: 60, skillsOffered: 19, facts: 32 });
-  const dir = mkdtempSync(join(tmpdir(), "coach-runs-"));
+  const dir = tempDir("runs-");
   const now = new Date(2026, 9, 23, 21, 14, 5);
   const first = writeLog(dir, log, now);
   const second = writeLog(dir, log, now);

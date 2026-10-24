@@ -1,22 +1,30 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, utimesSync, writeFileSync, mkdirSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { readFileSync, symlinkSync, utimesSync, writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { backupFolders, findNewestBackup, readBackup } from "../lib/backup.js";
+import { findNewestBackup, readBackup } from "../lib/backup.js";
 import { findMySkate } from "../lib/myskate.js";
-import { FIXTURE, mySkate } from "./helpers.js";
+import { isInside, ROOT, WORKSPACE } from "../lib/paths.js";
+import { FIXTURE, mySkate, tempDir } from "./helpers.js";
 
-const temp = () => mkdtempSync(join(tmpdir(), "coach-test-"));
+const temp = () => tempDir("backup-");
 
-test("finds MySkate next to this folder, and skips a MYSKATE_DIR that is not MySkate", () => {
-  const dir = findMySkate({ MYSKATE_DIR: temp() });
-  assert.ok(dir && dir.endsWith("MySkate"));
+test("finds MySkate next to this folder, and skips a MYSKATE_DIR that is not MySkate or is outside the workspace", () => {
+  assert.ok(findMySkate({ MYSKATE_DIR: temp() }).endsWith("/MySkate"));
+  assert.equal(findMySkate({ MYSKATE_DIR: "/nowhere/MySkate" }, WORKSPACE), join(WORKSPACE, "MySkate"));
+  assert.equal(findMySkate({}, temp()), null, "no MySkate inside that workspace");
 });
 
-test("looks in Downloads and iCloud Drive", () => {
-  const folders = backupFolders("/Users/sam");
-  assert.deepEqual(folders, ["/Users/sam/Downloads", "/Users/sam/Library/Mobile Documents/com~apple~CloudDocs/Downloads", "/Users/sam/Library/Mobile Documents/com~apple~CloudDocs"]);
+test("inside the workspace means inside, even through a link", () => {
+  assert.equal(WORKSPACE, join(ROOT, ".."));
+  assert.ok(isInside(FIXTURE, WORKSPACE));
+  assert.ok(isInside(join(WORKSPACE, "MySkate", "js"), WORKSPACE));
+  assert.ok(!isInside("/nowhere/myskate-backup-2026-10-23.json", WORKSPACE));
+  assert.ok(!isInside(join(WORKSPACE, "..", "Downloads", "x.json"), WORKSPACE));
+  assert.ok(!isInside(join(WORKSPACE, "..", "claude-workspace-other"), WORKSPACE));
+  const link = join(temp(), "myskate-backup-link.json");
+  symlinkSync("/nowhere/myskate-backup.json", link);
+  assert.ok(isInside(link, WORKSPACE), "a broken link is judged where it sits, and cannot be read anyway");
 });
 
 test("picks the newest backup across folders and ignores other files", () => {
@@ -38,9 +46,15 @@ test("picks the newest backup across folders and ignores other files", () => {
   assert.equal(findNewestBackup([join(a, "missing")]), null);
 });
 
+test("never reads a backup outside the workspace", async () => {
+  const ms = await mySkate();
+  const r = await readBackup("/nowhere/myskate-backup-2026-10-23.json", ms, { workspace: WORKSPACE });
+  assert.deepEqual(r, { ok: false, error: `MySkate Coach only reads backups inside ${WORKSPACE}. Put the backup in the coach's backups folder.` });
+});
+
 test("reads a backup with MySkate's own cleaning", async () => {
   const ms = await mySkate();
-  const r = await readBackup(FIXTURE, ms);
+  const r = await readBackup(FIXTURE, ms, { workspace: WORKSPACE });
   assert.equal(r.ok, true);
   assert.equal(r.locked, false);
   assert.equal(r.state.sessions.length, 10);

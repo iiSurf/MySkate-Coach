@@ -1,14 +1,15 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { askClaude, claudeArgs, cleanEnv, findClaude, jsonIn, readOutput, runProcess, signedIn, SYSTEM_PROMPT } from "../lib/claude.js";
+import { isInside, WORKSPACE } from "../lib/paths.js";
+import { tempDir } from "./helpers.js";
 
 const FAKE = new URL("./fake-claude.mjs", import.meta.url).pathname;
 const fixture = (name) => new URL(`./fixtures/${name}`, import.meta.url).pathname;
 const GOOD = JSON.parse(readFileSync(fixture("replies/good.json"), "utf8"));
-const temp = () => mkdtempSync(join(tmpdir(), "coach-claude-"));
+const temp = () => tempDir("claude-");
 
 test("the environment leaves out API keys, cloud providers, and Claude Code session markers, and keeps the rest", () => {
   const { env, removed } = cleanEnv({
@@ -112,18 +113,20 @@ test("finds JSON in text, with or without a fence", () => {
   assert.equal(jsonIn(""), undefined);
 });
 
-test("asks the stand-in for Claude Code: the brief on stdin, in an empty folder that is removed after, without the API key", async () => {
+test("asks the stand-in for Claude Code: the brief on stdin, in an empty folder inside the workspace that is removed after, without the API key", async () => {
   const dir = temp();
   const log = join(dir, "runs.jsonl");
   const { env } = cleanEnv({ ...process.env, ANTHROPIC_API_KEY: "sk-ant-should-not-arrive", FAKE_CLAUDE_LOG: log, FAKE_CLAUDE_REPLIES: `reply:${fixture("replies/good.json")}` });
-  const r = await askClaude({ bin: FAKE, prompt: "THE BRIEF", env, timeoutMs: 20_000 });
+  const r = await askClaude({ bin: FAKE, prompt: "THE BRIEF", env, workdir: join(dir, ".run"), timeoutMs: 20_000 });
   assert.equal(r.ok, true);
   assert.deepEqual(r.reply, GOOD);
   assert.equal(r.meta.model, "claude-sonnet-fake");
   const seen = JSON.parse(readFileSync(log, "utf8").trim());
   assert.equal(seen.brief, "THE BRIEF");
   assert.deepEqual(seen.cwdFiles, []);
+  assert.ok(seen.cwd.startsWith(join(dir, ".run", "claude-")) && isInside(seen.cwd, WORKSPACE), seen.cwd);
   assert.ok(!existsSync(seen.cwd), "the empty folder is removed after the run");
+  assert.ok(seen.envNames.includes("CLAUDE_CODE_DISABLE_CLAUDE_MDS") && seen.envNames.includes("CLAUDE_CODE_DISABLE_AUTO_MEMORY"));
   assert.ok(!seen.envNames.includes("ANTHROPIC_API_KEY"));
   assert.equal(seen.args[seen.args.indexOf("--tools") + 1], "");
 });

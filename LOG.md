@@ -176,3 +176,24 @@ Read against the code: the checks, limits (90 and 140 characters, 2 to 6 skills,
 ### Not verified
 
 That an iPhone saves the backup to iCloud Drive's Downloads: that is Safari's default, but it can be changed, so the README says to give the file's path otherwise.
+
+## 2026-10-23 (Friday): the workspace only
+
+### Plan
+
+The owner lets Claude work only inside `~/Documents/claude-workspace` and does not want it anywhere else. The coach looked for backups in Downloads and iCloud Drive and used the system's temporary folder, and so did the tests. Change all of it to stay inside the workspace.
+
+### Changes
+
+- `lib/paths.js`: the coach's folders (`backups/`, `plans/`, `runs/`, and `.run/` for Claude Code's empty working folders), the workspace (the folder that holds MySkate Coach), and `isInside`, which follows links so a link inside the workspace cannot lead out of it.
+- The coach looks for backups only in its own `backups/` folder (with a README saying to put the backup there), refuses a backup path outside the workspace, refuses a `MYSKATE_DIR` or `COACH_OUT` outside it, and runs Claude Code in an empty folder inside `.run/`, removed after. It also tells Claude Code not to load CLAUDE.md files or memory (safe mode already does), since that folder now sits inside the repository.
+- The tests make their scratch folders in `.tmp/` inside the repository, cleared before every `npm test`.
+- `README.md` has a new section, "What the coach touches on your Mac", and the setup and use steps say to move the backup into `backups/`. `CLAUDE.md` has the owner's boundary.
+
+### Verified
+
+`npm test`: 64 tests pass. New ones check that a backup outside the workspace is refused, that a backup left in the home folder's Downloads is never found, that `MYSKATE_DIR` and `COACH_OUT` outside the workspace are refused, that Claude Code's working folder is inside the workspace and removed after, and what "inside" means (paths that climb out with `..`, a sibling folder with a similar name, a link). `grep` finds no use of the system's temporary folder, Downloads, or iCloud Drive left in the code or the tests.
+
+### Not changed
+
+Claude Code itself still runs from where it is installed (the Claude desktop app's copy), and keeps its sign-in and settings where it always does (the macOS Keychain and `~/.claude`), as the desktop app already does. The README says so.

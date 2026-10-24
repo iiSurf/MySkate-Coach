@@ -6,20 +6,20 @@
 
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
-import { basename, dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { basename, join, relative } from "node:path";
 import { parseArgs } from "node:util";
-import { backupFolders, findNewestBackup, readBackup } from "./lib/backup.js";
+import { findNewestBackup, readBackup } from "./lib/backup.js";
 import { makeBrief } from "./lib/brief.js";
 import { askClaude, claudeArgs, cleanEnv, findClaude, MODEL, signedIn, SYSTEM_PROMPT } from "./lib/claude.js";
 import { addDays, dayOf, daysBetween, fmtDay, isDay } from "./lib/dates.js";
 import { mySkatePlan } from "./lib/fallback.js";
 import { painter, passedLines, planLines, planMarkdown } from "./lib/format.js";
 import { findMySkate, loadMySkate } from "./lib/myskate.js";
+import { folders, isInside, WORKSPACE } from "./lib/paths.js";
 import { coach, runLog, writeLog } from "./lib/pipeline.js";
 
-const ROOT = dirname(fileURLToPath(import.meta.url));
-const OUT = process.env.COACH_OUT || ROOT; // where plans/ and runs/ go (the tests point this somewhere else)
+/* Everything the coach reads and writes is inside the workspace (lib/paths.js). COACH_OUT moves its folders, for the tests. */
+const DIRS = folders();
 const EXIT = { ok: 0, input: 1, claude: 2, fallback: 3, bug: 4 };
 const INSTALL = "Install it with: curl -fsSL https://claude.ai/install.sh | bash (https://code.claude.com/docs/en/setup), then run: npm run signin";
 
@@ -35,7 +35,8 @@ Claude makes the plan; plain code checks it before you see it.
   npm run coach -- --model opus         another Claude model (default: ${MODEL})
   npm run signin                        sign Claude Code in with your Claude account (once)
 
-Backups are looked for in Downloads and iCloud Drive. In MySkate: Profile, then Save a backup.`;
+The coach only works inside your workspace folder. Put your backup in its backups folder:
+In MySkate: Profile, then Save a backup, then move the file into MySkate-Coach/backups.`;
 
 const color = Boolean(process.stdout.isTTY) && !process.env.NO_COLOR;
 const c = painter(color);
@@ -93,19 +94,24 @@ async function main(argv) {
   }
   const ms = await loadMySkate(dir);
 
-  /* The backup: the one given, or the newest in Downloads or iCloud Drive. */
+  /* The backup: the one given, or the newest in the coach's backups folder. Nothing outside the workspace is read. */
+  if (!isInside(DIRS.out, WORKSPACE)) {
+    say(`COACH_OUT must be inside ${WORKSPACE}.`);
+    return EXIT.input;
+  }
+  mkdirSync(DIRS.backups, { recursive: true });
   let path = positionals[0];
   if (!path) {
-    const found = findNewestBackup(backupFolders());
+    const found = findNewestBackup([DIRS.backups]);
     if (!found) {
-      say("No MySkate backup found in Downloads or iCloud Drive.");
-      say("In MySkate: Profile, then Save a backup. Or give the file: npm run coach -- path/to/backup.json");
+      say(`No MySkate backup in ${DIRS.backups}`);
+      say("In MySkate: Profile, then Save a backup, then move the file into that folder.");
       return EXIT.input;
     }
     path = found.path;
   }
   say(`Reading ${basename(path)}`);
-  const backup = await readBackup(path, ms, { askPassphrase: process.stdin.isTTY ? () => askHidden("  Passphrase for this locked backup (not shown): ") : undefined });
+  const backup = await readBackup(path, ms, { workspace: WORKSPACE, askPassphrase: process.stdin.isTTY ? () => askHidden("  Passphrase for this locked backup (not shown): ") : undefined });
   if (!backup.ok) {
     say(backup.error);
     return EXIT.input;
@@ -161,7 +167,7 @@ async function main(argv) {
     today,
     date,
     slotMin,
-    ask: (prompt) => askClaude({ bin, prompt, model, env }),
+    ask: (prompt) => askClaude({ bin, prompt, model, env, workdir: DIRS.work }),
     on: {
       asking: (n) => say(n === 1 ? `Asking Claude for a ${slotMin}-minute plan for ${fmtDay(date)} (${model}, no tools)` : `Asking Claude again with ${plural(lastProblems, "problem")}`),
       checked: (n, checked) => {
@@ -189,14 +195,14 @@ async function main(argv) {
   say();
 
   /* The plan as a file, and the run log for tracing what happened. Both stay on this Mac. */
-  mkdirSync(join(OUT, "plans"), { recursive: true });
-  const planFile = join("plans", `${date}.md`);
-  writeFileSync(join(OUT, planFile), planMarkdown(result, { today }));
+  mkdirSync(DIRS.plans, { recursive: true });
+  const planPath = join(DIRS.plans, `${date}.md`);
+  writeFileSync(planPath, planMarkdown(result, { today }));
   const args = claudeArgs({ model }).map((a) => (a === SYSTEM_PROMPT ? "<prompts/coach.md>" : a.startsWith("{") ? "<prompts/reply.schema.json>" : a));
   const log = runLog({ result, backup: { file: path, exportedAt: backup.exportedAt, locked: backup.locked, ...summary }, claude: { bin, model, signIn: auth.method, args }, systemPrompt: SYSTEM_PROMPT, startedAt: startedAt.toISOString(), finishedAt: finishedAt.toISOString() });
-  const logPath = writeLog(join(OUT, "runs"), log, startedAt);
-  say(c("dim", `Saved ${planFile}`));
-  say(c("dim", `Run log: ${join("runs", basename(logPath))}`));
+  const logPath = writeLog(DIRS.runs, log, startedAt);
+  say(c("dim", `Saved ${relative(DIRS.out, planPath)}`));
+  say(c("dim", `Run log: ${relative(DIRS.out, logPath)}`));
   return result.source === "claude" ? EXIT.ok : EXIT.fallback;
 }
 

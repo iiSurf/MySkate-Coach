@@ -53,7 +53,7 @@ Checking the plan
 
 ## How it works
 
-1. **Read** (code). Finds your newest MySkate backup in Downloads or iCloud Drive and reads it with MySkate's own code, which cleans every field. A locked backup is unlocked with your passphrase, which is never kept.
+1. **Read** (code). Finds your newest MySkate backup in the coach's `backups` folder and reads it with MySkate's own code, which cleans every field. A locked backup is unlocked with your passphrase, which is never kept.
 2. **Brief** (code). Works out numbered facts from the backup with MySkate's own numbers (D1 the day, R1 to R5 your recent sessions, H your homework, G your goals, T1 your test, E1 your next competition, and one S fact for each skill you could practice), plus the list of skills Claude may pick from.
 3. **Plan** (Claude). One `claude -p` call with the brief, Claude's instructions (`prompts/coach.md`), and the reply's shape (`prompts/reply.schema.json`). Claude has no tools: it can only read the brief and answer with one JSON reply.
 4. **Check** (code). `lib/check.js` checks everything the reply says (see the table below) and lists every problem at once.
@@ -81,6 +81,15 @@ Checking the plan
 - **Never sent:** your name, friends, costs, rinks and ice times, blades, badges, settings, or anything else in the backup. A test checks this.
 - To see exactly what would be sent: `npm run coach -- --brief`.
 
+## What the coach touches on your Mac
+
+The coach works only inside your workspace: the folder that holds MySkate and MySkate Coach (`~/Documents/claude-workspace`). It never looks in Downloads, iCloud Drive, your Desktop, or anywhere else, and the tests check this.
+
+- **Reads:** the newest `myskate-backup-*.json` in `backups/` (or a backup you name, which must be inside the workspace), and MySkate's code and skill lists in `../MySkate`.
+- **Writes:** your plan to `plans/`, the run log to `runs/`, and an empty folder in `.run/` for each Claude Code run, removed after.
+- **Outside the workspace, only Claude Code itself:** the coach runs Claude Code from where it is installed (the copy inside the Claude desktop app, or `claude` if you installed it), and Claude Code keeps its sign-in in the macOS Keychain and its settings in a hidden `.claude` folder in your home folder, the same places the Claude desktop app already uses.
+- **Claude, the model, gets no tools,** so it cannot open, read, or upload any file anywhere. It only reads the brief the coach hands it.
+
 ## Cost
 
 - It runs on Claude Code with your Claude subscription sign-in, the same access you use Claude Code with. No API key.
@@ -92,19 +101,19 @@ Checking the plan
 
 1. Node 20 or newer (tested on Node 22). Nothing to install with npm: there are no dependencies.
 2. MySkate in the folder next to this one, so `../MySkate` exists: `git clone https://github.com/iiSurf/MySkate`. Or set `MYSKATE_DIR` to where it is.
-3. Claude Code. If the `claude` command isn't installed, the coach uses the copy inside the Claude desktop app. To install the command: `curl -fsSL https://claude.ai/install.sh | bash` ([setup](https://code.claude.com/docs/en/setup)).
+3. Claude Code. Nothing to install if you have the Claude desktop app: the coach uses the copy inside it. (Or install the `claude` command: `curl -fsSL https://claude.ai/install.sh | bash`, [setup](https://code.claude.com/docs/en/setup).)
 4. `npm run signin` signs Claude Code in with your Claude account (it opens your browser). It uses the subscription sign-in, never an API key.
 
 ## Use
 
-1. In MySkate: Profile, then Save a backup. On an iPhone, Safari saves it to iCloud Drive's Downloads folder unless you changed that, and the coach looks there and in your Mac's Downloads. Otherwise give the file: `npm run coach -- path/to/backup.json`.
+1. In MySkate: Profile, then Save a backup. Move the file into this folder's `backups` folder (the coach never looks anywhere outside the workspace, so moving it is up to you).
 2. On your Mac, in this folder: `npm run coach`.
 3. At the rink: open MySkate's Plan and tick the skills in the plan (the minutes are the coach's suggestion).
 
 Options:
 
 ```
-npm run coach -- path/to/backup.json   use this backup instead of the newest
+npm run coach -- path/to/backup.json   use this backup instead of the newest (it must be inside the workspace)
 npm run coach -- --slot 45             your ice time in minutes (15 to 180, in steps of 5; default: your usual)
 npm run coach -- --today               plan today's session (default: tomorrow), or --date 2026-10-24
 npm run coach -- --brief               show what Claude would be given, and stop

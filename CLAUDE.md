@@ -12,6 +12,15 @@ This is Artifact 3 ("AI Inside It") for TCSS 490. The Portfolio card is the Arti
 - The checker never trusts the reply. A failed check retries once with the list of problems, then falls back to MySkate's own suggestion, and says so.
 - Every run writes a log to `runs/` (prompt, raw replies, problems, result), so a bad plan can be traced to the model or to the code.
 
+## The owner's boundary: the workspace only
+
+The owner lets Claude work only inside `~/Documents/claude-workspace`. Nothing in this repository reads or writes anywhere else: not Downloads, iCloud Drive, the Desktop, or the system's temporary folder.
+
+- The coach looks for backups only in its own `backups/` folder, refuses a backup path outside the workspace, and keeps `plans/`, `runs/`, and Claude Code's empty working folders (`.run/`) inside this repository (`lib/paths.js`).
+- Tests make their scratch folders in `.tmp/` inside this repository (cleared before every `npm test`), never in the system's temporary folder.
+- The one exception is Claude Code itself: the coach runs it from where it is installed, and it keeps its own sign-in and settings where it always does. The model gets no tools, so it cannot open any file.
+- When working on this repository, keep scratch files in `.tmp/` too.
+
 ## Stack and constraints
 
 - Node 22, ES modules, no dependencies. `npm test` runs Node's built-in test runner. Tests never call the model: `tests/fake-claude.mjs` stands in for it with recorded replies.

@@ -3,10 +3,10 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { FIXTURE, mySkate } from "./helpers.js";
+import { WORKSPACE } from "../lib/paths.js";
+import { FIXTURE, mySkate, tempDir } from "./helpers.js";
 
 const ROOT = new URL("..", import.meta.url).pathname;
 const FAKE = join(ROOT, "tests", "fake-claude.mjs");
@@ -14,7 +14,7 @@ const fixture = (name) => join(ROOT, "tests", "fixtures", name);
 const GOOD = `reply:${fixture("replies/good.json")}`;
 
 function setup() {
-  const dir = mkdtempSync(join(tmpdir(), "coach-cli-"));
+  const dir = tempDir("cli-");
   const badFile = join(dir, "bad.json");
   const good = JSON.parse(readFileSync(fixture("replies/good.json"), "utf8"));
   good.items[1].minutes = 25;
@@ -137,17 +137,29 @@ test("--brief shows what Claude would get and --myskate shows MySkate's plan, an
   assert.equal(asked(s).length, 0);
 });
 
-test("finds the newest backup in Downloads or iCloud Drive, and says how to make one when there is none", async () => {
+test("finds the newest backup in the coach's backups folder only, and says where to put one when there is none", async () => {
   const s = setup();
+  /* A backup in the home folder's Downloads is never looked at. */
+  mkdirSync(join(s.home, "Downloads"), { recursive: true });
+  writeFileSync(join(s.home, "Downloads", "myskate-backup-2026-10-23.json"), readFileSync(FIXTURE));
   const none = coach(s, ["--brief"]);
   assert.equal(none.code, 1);
-  assert.ok(none.out.includes("No MySkate backup found in Downloads or iCloud Drive."));
-  const icloud = join(s.home, "Library", "Mobile Documents", "com~apple~CloudDocs", "Downloads");
-  mkdirSync(icloud, { recursive: true });
-  writeFileSync(join(icloud, "myskate-backup-2026-10-23.json"), readFileSync(FIXTURE));
+  assert.ok(none.out.includes(`No MySkate backup in ${join(s.out, "backups")}`), none.out);
+  assert.ok(existsSync(join(s.out, "backups")), "the folder is made, so it is easy to find");
+  writeFileSync(join(s.out, "backups", "myskate-backup-2026-10-23.json"), readFileSync(FIXTURE));
   const found = coach(s, ["--brief"]);
   assert.equal(found.code, 0, found.out);
   assert.ok(found.out.startsWith("Reading myskate-backup-2026-10-23.json"));
+});
+
+test("never reads a backup outside the workspace, and never works outside it", () => {
+  const s = setup();
+  const outside = coach(s, ["/nowhere/myskate-backup-2026-10-23.json", "--brief"]);
+  assert.equal(outside.code, 1);
+  assert.ok(outside.out.includes(`MySkate Coach only reads backups inside ${WORKSPACE}.`), outside.out);
+  const out = coach(s, [FIXTURE, "--brief"], { COACH_OUT: "/nowhere/coach" });
+  assert.equal(out.code, 1);
+  assert.ok(out.out.includes(`COACH_OUT must be inside ${WORKSPACE}.`), out.out);
 });
 
 test("a locked backup needs a terminal to ask for the passphrase", async () => {
