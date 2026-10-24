@@ -197,3 +197,27 @@ The owner lets Claude work only inside `~/Documents/claude-workspace` and does n
 ### Not changed
 
 Claude Code itself still runs from where it is installed (the Claude desktop app's copy), and keeps its sign-in and settings where it always does (the macOS Keychain and `~/.claude`), as the desktop app already does. The README says so.
+
+## 2026-10-23 (Friday): the first real run
+
+### Plan
+
+Step 8: sign Claude Code in on the Mac with the owner's Claude subscription, and run the coach for real with the made-up skater (not the owner's own data).
+
+### What happened
+
+- The owner signed in through `npm run signin` (`claude auth login --claudeai`), started in the app's terminal panel at their request and finished by them in the browser. The coach's own check then reported a `claude.ai` sign-in, from the terminal and from this session.
+- `npm run coach -- tests/fixtures/backup.json`: Claude's first plan passed every check, exit code 0, in about 8 seconds. The plan put the coach's homework first but kept it short because that skill is already earned, started the mazurka (new homework), gave the program's step sequence 10 minutes, gave the waltz jump the most time toward its goal, and brought back the spin that had gone 16 days without practice. Every focus was copied from the skater's own words.
+- The run log settles what the docs did not: with `--tools ""`, Claude Code still returned the schema-checked reply in `structured_output`. Claude used no tools (nothing was denied); Claude Code counted 2 turns, the second most likely its own step for returning the checked JSON. Model: Claude Sonnet 5.5. About 5,300 tokens in and 1,100 out (570 of them thinking). Claude Code's cost estimate was $0.03; on a subscription that is not a charge.
+
+### Changes
+
+- `README.md`: "What a run looks like" now shows this real run, and the cost section gives its size. The failed-check example is labelled as coming from the tests.
+
+### Verified
+
+The run itself, its run log (one attempt, no problems, `claude.ai` sign-in, `structured_output` present, no permission denials), the saved `plans/2026-10-24.md`, and that `git` ignores `plans/` and `runs/`. `npm test` still passes (64).
+
+### Not verified
+
+A real run that fails a check and retries (the tests cover it with the stand-in); a run with the owner's own backup; the passphrase prompt in a real terminal. Whether CLAUDE.md files reach the model is not observed directly: safe mode and `CLAUDE_CODE_DISABLE_CLAUDE_MDS` are both documented to keep them out.

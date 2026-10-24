@@ -6,7 +6,7 @@ Built with Claude Code for TCSS 490, Artifact 3 ("AI Inside It"). It runs Claude
 
 ## What a run looks like
 
-With the made-up skater in `tests/fixtures/backup.json`, and the recorded reply the tests use in place of Claude:
+The first real run, with the made-up skater in `tests/fixtures/backup.json` (Claude Sonnet 5.5, October 23, 2026, about 8 seconds):
 
 ```
 $ npm run coach -- tests/fixtures/backup.json
@@ -20,28 +20,30 @@ Checking the plan
   ✓ every focus is in your own words
 
 Sat, Oct 24 · 60 mins
-Homework and your waltz jump first, then the spin you have not touched since Oct 7.
+Start with homework edges, then a new mazurka, then jumps and spin for the Fall
+Classic.
 
-1. Backward crossovers to a backward outside edge glide · 10 min
-   Homework due Monday: 3 sets each way
-   Focus: "3 sets of back crossovers each way"
-2. Waltz jump · 20 min
-   4 of 12 landed Thursday; your goal is 4 stars by Nov 15
-   Focus: "check the landing for a count of 3"
-3. One-foot upright spin · 15 min
-   2 stars and not practiced in 16 days; it's in your program
+1. Backward crossovers to a backward outside edge glide · 5 min
+   Homework due Mon, Oct 26; already earned at 4 stars, so a short run
+   Focus: "3 sets of back crossovers each way before every session"
+2. Mazurka · 10 min
+   Not tried yet, and the coach's homework is due Sat, Oct 31
+   Focus: "Try the mazurka on both sides, slowly"
+3. Two forward crossovers into a forward inside mohawk, step down and cross
+   behind, one backward crossover, step to a forward inside edge · 10 min
+   In your Fall Classic program, still at 3 stars and needs work
+4. Waltz jump · 20 min
+   Goal is 4 stars by Nov 15, now 3; landed 4 of 12 Thursday
+   Focus: "Bend the knee and check the landing for a count of 3"
+5. One-foot upright spin · 15 min
+   Only 2 stars, not practiced in 16 days, and it's in your Fall Classic program
    Focus: "Find the ball of the foot, arms in slowly"
-4. Mazurka · 10 min
-   New homework: try it on both sides
-5. Two forward crossovers into a forward inside mohawk, step down and cross
-   behind, one backward crossover, step to a forward inside edge · 5 min
-   In your Fall Classic program, 3 stars now
 
 Saved plans/2026-10-24.md
-Run log: runs/2026-10-23-221951.json
+Run log: runs/2026-10-23-225952.json
 ```
 
-When a check fails, you see it, and Claude gets one more try with the list of problems:
+When a check fails, you see it, and Claude gets one more try with the list of problems (this one is from the tests, where a stand-in plays Claude with a reply whose minutes add up to 65):
 
 ```
 Checking the plan
@@ -94,7 +96,7 @@ The coach works only inside your workspace: the folder that holds MySkate and My
 
 - It runs on Claude Code with your Claude subscription sign-in, the same access you use Claude Code with. No API key.
 - In headless mode an API key would win over your sign-in and be billed per call, so the coach leaves `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, and the cloud-provider switches out of Claude Code's environment, and refuses to run unless `claude auth status` says the sign-in is a Claude subscription.
-- A run is one call to Claude, or two when the first plan fails a check. Runs count toward your plan's usage limits.
+- A run is one call to Claude, or two when the first plan fails a check. Runs count toward your plan's usage limits. The first real run was one call: about 5,300 tokens in and 1,100 out, by Claude Code's own count.
 - The run log keeps Claude Code's own cost estimate. On a subscription that is an estimate at list price, not a charge. The one way a subscription can be charged is extra usage beyond the plan's limits, if your account has it turned on.
 
 ## Setup (once)
