@@ -1,0 +1,10 @@
+{
+  "summary": "Homework and your waltz jump first, then the spin you have not touched since Oct 7.",
+  "items": [
+    { "skillId": "pre-free-skate.bkwd-xovers-bo-glide", "minutes": 10, "why": "Homework due Monday: 3 sets each way", "facts": ["H1", "S1"], "focus": "3 sets of back crossovers each way" },
+    { "skillId": "pre-free-skate.waltz-jump", "minutes": 20, "why": "4 of 12 landed Thursday; your goal is 4 stars by Nov 15", "facts": ["S3", "G1"], "focus": "check the landing for a count of 3" },
+    { "skillId": "pre-free-skate.one-foot-upright-spin", "minutes": 15, "why": "2 stars and not practiced in 16 days; it's in your program", "facts": ["S5", "E1"], "focus": "Find the ball of the foot, arms in slowly" },
+    { "skillId": "pre-free-skate.mazurka", "minutes": 10, "why": "New homework: try it on both sides", "facts": ["H2", "S2"], "focus": "" },
+    { "skillId": "pre-free-skate.xover-mohawk-sequence", "minutes": 5, "why": "In your Fall Classic program, 3 stars now", "facts": ["S4", "E1"], "focus": "" }
+  ]
+}

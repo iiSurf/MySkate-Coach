@@ -73,3 +73,23 @@ Step 3: turn the backup into what Claude is given: numbered facts in MySkate's o
 ### Verified
 
 `npm test`: 16 tests pass. The new ones check each kind of fact word for word against the made-up skater, the order of the skills offered, the limit of 60, a skater with nothing logged, a far-off competition and a past test date, and that the brief never contains the skater's name, a friend, a cost, a rink, the blades, or the friend card id. Read the whole brief for the made-up skater: 32 facts, 19 skills to choose from, about 7,600 characters.
+
+## 2026-10-23 (Friday): the checker
+
+### Plan
+
+Step 4: every check on Claude's reply, in one pure function, with a test for each, before any model is called.
+
+### Changes
+
+- `lib/check.js`, `checkPlan(reply, brief, catalog)`: the reply must be an object with an `items` list and a `summary`; 2 to 6 skills (fewer for short ice times); each skill one of those offered, only once; minutes whole, in steps of 5, at least 5, adding up exactly to the ice time; each reason cites 1 to 4 real facts, each about that skill or about the whole session; every number in a reason is in a fact it cites; a reason is at most 90 characters on one line; a focus is empty or copied word for word (any case, any quote marks) from the skater's own cue, notes, or homework for that skill; the summary is at most 140 characters and every number in it is somewhere in the facts. It lists every problem at once, in order, so one retry can fix them all. It never changes the reply: the plan passes as it is, with each skill's name added.
+- Problems are reported at their root: a skill that was not offered, or a reason citing the wrong facts, is reported once, not again for every check that depends on it.
+- `tests/fixtures/replies/good.json`: a recorded good reply for the made-up skater.
+
+### Verified
+
+`npm test`: 27 tests pass. The 11 new ones try a good reply and replies that break each rule (an invented skill id, a real skill that was not offered, a skill twice, 1 and 7 skills, 12 minutes, minutes as text, 65 minutes in all, a made-up number, a number from another skill's fact, a clock time, a long or two-line reason, no facts, five facts, an unknown fact, another skill's fact, a focus that is not the skater's words, a focus from another skill's notes, a made-up number in the summary, and several problems at once).
+
+### Not verified, and a known limit
+
+The number check makes sure each number in a reason appears in a fact the reason cites. It catches invented numbers, not every mix-up: "not practiced in 2 weeks" passes for the waltz jump because 2 is one of its last ratings. A test shows this, and README.md will say it.
