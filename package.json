@@ -1,0 +1,14 @@
+{
+  "name": "myskate-coach",
+  "private": true,
+  "type": "module",
+  "description": "MySkate Coach: plans your next figure skating session from a MySkate backup. Claude (through Claude Code, headless) makes the plan; plain code checks it.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "coach": "node coach.mjs",
+    "signin": "node coach.mjs --signin",
+    "test": "node --test \"tests/*.test.js\""
+  }
+}
