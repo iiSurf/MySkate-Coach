@@ -56,3 +56,20 @@ Step 2: find the newest MySkate backup and read it the way MySkate does, so the 
 ### Verified
 
 `npm test`: 6 tests pass (finding MySkate, the newest backup across folders, reading the made-up backup, a locked backup with the right and wrong passphrase, and MySkate's own messages for files that are not backups).
+
+## 2026-10-23 (Friday): the brief Claude gets
+
+### Plan
+
+Step 3: turn the backup into what Claude is given: numbered facts in MySkate's own numbers, the skills it may pick, and the size of the plan. Send only what the plan needs.
+
+### Changes
+
+- `lib/brief.js`: general facts (D1 the day and the ice time, L1 the levels, W1 the last 4 weeks, R1 to R5 the recent sessions), open homework (H), open goals (G), the test (T1), and a competition in the next 60 days with its program (E1). Then one fact per skill Claude may pick (S1, S2, ...): MySkate's `skillStats` numbers (latest and best stars, the last ratings, landed of tried, when it was last practiced, earned or not), MySkate's own `suggestNext` pick, and the skater's cue and latest notes on it.
+- The skills Claude may pick, most pressing first: homework, goals, the competition's program, the skater's levels, the test's skills, anything practiced in the last 60 days, and the next level. At most 60.
+- Each fact keeps the numbers in it, for the checker. The skater's own words about each skill (cue, notes, homework) are kept too, so a "focus" can be checked as copied word for word.
+- `lib/dates.js`: days as English words ("Thu, Oct 22") without time zone surprises.
+
+### Verified
+
+`npm test`: 16 tests pass. The new ones check each kind of fact word for word against the made-up skater, the order of the skills offered, the limit of 60, a skater with nothing logged, a far-off competition and a past test date, and that the brief never contains the skater's name, a friend, a cost, a rink, the blades, or the friend card id. Read the whole brief for the made-up skater: 32 facts, 19 skills to choose from, about 7,600 characters.
