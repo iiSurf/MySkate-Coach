@@ -5,18 +5,19 @@
    be used so MySkate's own plan was shown, 4 a bug in MySkate Coach itself. */
 
 import { spawn } from "node:child_process";
-import { mkdirSync, writeFileSync } from "node:fs";
-import { basename, join, relative } from "node:path";
+import { mkdirSync } from "node:fs";
+import { basename } from "node:path";
 import { parseArgs } from "node:util";
 import { findNewestBackup, readBackup } from "./lib/backup.js";
 import { makeBrief } from "./lib/brief.js";
-import { askClaude, claudeArgs, cleanEnv, findClaude, MODEL, signedIn, SYSTEM_PROMPT } from "./lib/claude.js";
+import { askClaude, cleanEnv, findClaude, MODEL, signedIn } from "./lib/claude.js";
 import { addDays, dayOf, daysBetween, fmtDay, isDay } from "./lib/dates.js";
 import { mySkatePlan } from "./lib/fallback.js";
-import { painter, passedLines, planLines, planMarkdown } from "./lib/format.js";
+import { painter, passedLines, planLines } from "./lib/format.js";
 import { findMySkate, loadMySkate } from "./lib/myskate.js";
 import { folders, isInside, WORKSPACE } from "./lib/paths.js";
-import { coach, runLog, writeLog } from "./lib/pipeline.js";
+import { coach } from "./lib/pipeline.js";
+import { saveRun } from "./lib/run.js";
 
 /* Everything the coach reads and writes is inside the workspace (lib/paths.js). COACH_OUT moves its folders, for the tests. */
 const DIRS = folders();
@@ -195,14 +196,9 @@ async function main(argv) {
   say();
 
   /* The plan as a file, and the run log for tracing what happened. Both stay on this Mac. */
-  mkdirSync(DIRS.plans, { recursive: true });
-  const planPath = join(DIRS.plans, `${date}.md`);
-  writeFileSync(planPath, planMarkdown(result, { today }));
-  const args = claudeArgs({ model }).map((a) => (a === SYSTEM_PROMPT ? "<prompts/coach.md>" : a.startsWith("{") ? "<prompts/reply.schema.json>" : a));
-  const log = runLog({ result, backup: { file: path, exportedAt: backup.exportedAt, locked: backup.locked, ...summary }, claude: { bin, model, signIn: auth.method, args }, systemPrompt: SYSTEM_PROMPT, startedAt: startedAt.toISOString(), finishedAt: finishedAt.toISOString() });
-  const logPath = writeLog(DIRS.runs, log, startedAt);
-  say(c("dim", `Saved ${relative(DIRS.out, planPath)}`));
-  say(c("dim", `Run log: ${relative(DIRS.out, logPath)}`));
+  const saved = saveRun({ result, today, date, dirs: DIRS, backupPath: path, backup, bin, model, signIn: auth.method, startedAt, finishedAt });
+  say(c("dim", `Saved ${saved.planFile}`));
+  say(c("dim", `Run log: ${saved.logFile}`));
   return result.source === "claude" ? EXIT.ok : EXIT.fallback;
 }
 

@@ -236,3 +236,19 @@ The owner created the empty public repository `iiSurf/MySkate-Coach` and asked t
 ### Verified
 
 `npm test` (64 pass) just before the push. The repository page on GitHub: public, every file there, and the README rendered with all its sections and the table of what Claude decides and what the code checks. The live Portfolio card opens this repository in a new tab.
+
+## 2026-10-24 (Saturday): an app you can open and demo
+
+### Plan
+
+The owner tried the Portfolio card: everything worked, but the button opened the GitHub repository, and Artifact 3 has to be an app that can be shown and demoed. Claude can only run on the Mac (Claude Code on a subscription; a public page would need a paid API key, which needs the instructor's OK). So, both: a web app on the Mac that runs Claude live (`npm run app`), and the same page on GitHub Pages playing back real recorded runs, clearly labelled, for the card to point at.
+
+### Changes
+
+- `app.mjs` (`npm run app`): a small server on 127.0.0.1:8790 that serves the page and, for a plan, runs the same steps as the command and sends each one to the page as it happens (server-sent events): reading the backup, the brief, Claude answering, each check, the plan, saved. It answers only to a page that calls itself localhost, serves only `index.html`, `web/` and `demo/runs/`, reads backups only from `backups/` (or the made-up skater), runs one plan at a time, and saves each run like the command does, with the steps the page showed.
+- `lib/run.js`: saving a run (the plan and the run log), shared by the command and the app.
+- `index.html`, `web/app.js`, `web/app.css`: the page, in MySkate's clean rink look. Live, it lists the backups, the ice time, and the day, and shows each step as it happens (who did it, code or Claude, with every check passed or failed), then the plan as cards, with what Claude was given and its reply underneath. Without a server (on GitHub Pages) it says it is a recording and plays back runs from `demo/runs/`. Everything from a run goes on the page as text, never as HTML.
+
+### Verified
+
+`npm test`: 69 tests pass. The 5 new ones run the server for real with the stand-in for Claude Code: it refuses a request that is not for localhost and every file outside the page's own (including paths that climb out with `..`); the status lists the made-up skater and the backups in `backups/` without any path; a good run sends its steps in order and saves the plan and a run log that keeps them; a plan that fails twice ends with MySkate's own plan and the reason; a backup outside the list, a bad ice time, and an API-key sign-in each end with a plain message (Claude never asked).

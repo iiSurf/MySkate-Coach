@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MySkate Coach</title>
+<meta name="description" content="Claude plans your next figure skating session from your MySkate log, and plain code checks every part of the plan.">
+<link rel="stylesheet" href="web/app.css?v=1">
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <p class="kicker">MySkate Coach</p>
+    <h1>Your next session, planned by Claude and checked by code</h1>
+    <p class="mode" id="mode" aria-live="polite">Starting…</p>
+  </div>
+</header>
+
+<main class="wrap grid">
+  <div class="col">
+    <section class="card notice" id="demoNotice" hidden>
+      <h2>This is a recording</h2>
+      <p>These are real runs of the app with a made-up skater, played back here. Claude can't run on this public page: the live app runs on a Mac with Claude Code (<code>npm run app</code>), on a Claude subscription and never a paid API key. The two runs marked "stand-in" show what happens when a plan fails a check; they use the recorded replies the tests use in Claude's place.</p>
+    </section>
+
+    <section class="card" id="setup" aria-labelledby="setupTitle">
+      <h2 id="setupTitle">Plan a session</h2>
+      <div id="liveSetup" hidden>
+        <label class="field">Whose log
+          <select id="backup"></select>
+        </label>
+        <fieldset class="field"><legend>Ice time</legend><div class="chips" id="slots"></div></fieldset>
+        <fieldset class="field"><legend>Day</legend><div class="chips" id="days"></div></fieldset>
+      </div>
+      <div id="demoSetup" hidden>
+        <p class="note">Pick a recorded run to play it back.</p>
+        <div class="runs" id="runs"></div>
+      </div>
+      <button type="button" class="btn" id="go" disabled>Plan my session</button>
+      <p class="note" id="setupNote" role="status"></p>
+    </section>
+
+    <section class="card" id="stepsCard" hidden aria-labelledby="stepsTitle">
+      <h2 id="stepsTitle">What happened</h2>
+      <ol class="steps" id="steps"></ol>
+    </section>
+  </div>
+
+  <div class="col">
+    <section class="card plan" id="planCard" hidden aria-labelledby="planTitle">
+      <p class="eyebrow" id="planSource"></p>
+      <h2 id="planTitle"></h2>
+      <p class="summary" id="planSummary"></p>
+      <p class="warn" id="planReason" hidden></p>
+      <ol class="items" id="planItems"></ol>
+    </section>
+
+    <section class="card" id="details" hidden>
+      <details><summary>What Claude was given</summary><pre id="briefText"></pre></details>
+      <details><summary>Claude's reply, as it came back</summary><pre id="replyText"></pre></details>
+    </section>
+
+    <section class="card how" aria-labelledby="howTitle">
+      <h2 id="howTitle">How it works</h2>
+      <ol>
+        <li><b>Code</b> reads the skater's MySkate backup with MySkate's own code and turns it into numbered facts: ratings, landings, homework, goals, the next test and competition.</li>
+        <li><b>Claude</b> picks 2 to 6 skills, the minutes for each, a reason for each that cites the facts, and a focus copied from the skater's own notes. It has no tools: it only reads the facts and answers.</li>
+        <li><b>Code</b> checks every part: real skills, minutes that fill the ice time, every number traced to the facts, the focus in the skater's own words. A plan that fails goes back once with the problems; if it fails again, MySkate's own suggestion is used.</li>
+      </ol>
+      <p class="note">Built for TCSS 490, Artifact 3. <a href="https://github.com/iiSurf/MySkate-Coach">The code, and exactly what Claude does and what the code checks</a>.</p>
+    </section>
+  </div>
+</main>
+
+<script src="web/app.js?v=1"></script>
+</body>
+</html>
