@@ -122,3 +122,18 @@ Step 5, first half: the one file that talks to the model, Claude's instructions,
 ### Not verified
 
 A real Claude Code run. Claude Code is not signed in on this Mac yet (the owner will run `npm run signin`).
+
+## 2026-10-23 (Friday): one retry, MySkate's own plan, and the run log
+
+### Plan
+
+Step 5, second half: put the pieces together. Ask once; if the checks fail, ask once more with the list of problems; if that fails too, or Claude Code itself cannot answer, use MySkate's own suggestion and say why. Keep a log of every run.
+
+### Changes
+
+- `lib/pipeline.js`: `coach()` runs the brief, the question, the checks, and the one retry. A failed check goes back with the brief, the list of problems, and the last reply as it was. A failure of Claude Code itself (not signed in, a usage limit, too slow) is not retried, because asking again would not help. `runLog()` and `writeLog()` keep every attempt (the prompt, what Claude Code printed, the reply, its problems, the time taken, and Claude Code's own report of the model and tokens) and the result, in `runs/` (never committed).
+- `lib/fallback.js`: MySkate's own plan: the skills MySkate's `suggestNext` picks (about 15 minutes each, 2 to 6 skills), the ice time shared out by MySkate's `splitMinutes`, topped up from the top of the brief's list when MySkate has too few to suggest.
+
+### Verified
+
+`npm test`: 45 tests pass. The new ones use a stand-in for Claude: a good plan the first time (asked once); a plan with 65 minutes that is fixed on the second try (the retry prompt has the brief, the problem, and the last reply); a plan that fails twice (MySkate's own plan, with the reason); an answer that is not JSON and an empty answer (retried like any failed check); a usage limit (not retried; MySkate's own plan says why). MySkate's own plan matches the app's own suggestion and its way of sharing minutes for 15, 30, 45, 60, and 120 minutes, and passes the same checks as Claude's plan. The run log keeps both attempts and their problems, and a second run in the same second gets its own file.
