@@ -158,3 +158,21 @@ Also run by hand against the stand-in and read: the terminal output and the save
 ### Not verified
 
 A real Claude Code run, and the passphrase prompt in a real terminal (the tests can only check that it is not offered without one).
+
+## 2026-10-23 (Friday): the README
+
+### Plan
+
+Step 7: write down exactly what Claude is responsible for and what the code checks, as the assignment asks, plus setup, use, cost, what is sent to Claude, how to tell whether a bad plan was Claude's or the code's, and the known limits.
+
+### Changes
+
+- `README.md`: what a run looks like (from the stand-in for now, to be replaced by a real run), how it works in six steps with who does each, a table of what Claude decides and what the code checks for each part of the plan, what is and is never sent to Claude, the cost (subscription only, no API key, what the cost estimate means), setup, use, exit codes and run logs for telling Claude's mistakes from the code's, the known limits, the tests, and the files.
+
+### Verified
+
+Read against the code: the checks, limits (90 and 140 characters, 2 to 6 skills, steps of 5, 60 skills offered, 60 days, 3 minutes), exit codes, options, and what the brief sends all match `lib/check.js`, `lib/brief.js`, `lib/claude.js`, and `coach.mjs`.
+
+### Not verified
+
+That an iPhone saves the backup to iCloud Drive's Downloads: that is Safari's default, but it can be changed, so the README says to give the file's path otherwise.
